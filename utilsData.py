@@ -1,5 +1,5 @@
 import numpy as np
-
+import pandas as pd
 # PREPROCESSING AND DATA EXTRACTION UTILS 
 
 def mix_gauss(mu, Sigma, n):
@@ -21,12 +21,13 @@ def mix_gauss(mu, Sigma, n):
 
     return X, Y
 
-def split_dataset(X, Y, train_size, test_size, calib_size):
-    
+def split_dataset(X, Y, train_size, test_size, calib_size, save_path):
+
     train_size = int(train_size)
     test_size = int(test_size)
     calib_size = int(calib_size)
 
+   
     if train_size <= 0 or test_size <= 0 or calib_size <= 0:
         raise ValueError('Sizes of training, test, and calibration sets must be positive integers.')
 
@@ -36,6 +37,7 @@ def split_dataset(X, Y, train_size, test_size, calib_size):
     if total_set_size > total_samples:
         raise ValueError('Sizes of training, test, and calibration sets exceed the total number of samples.')
 
+    
     perm_indices = np.random.permutation(total_samples)
 
     X_train = X[perm_indices[:train_size]]
@@ -47,7 +49,47 @@ def split_dataset(X, Y, train_size, test_size, calib_size):
     X_calib = X[perm_indices[train_size + test_size:train_size + test_size + calib_size]]
     Y_calib = Y[perm_indices[train_size + test_size:train_size + test_size + calib_size]]
 
-    return X_train, Y_train, X_test, Y_test, X_calib, Y_calib
+    train_df = pd.DataFrame(X_train, columns=['SafetyMargin', 'Eta', 'Tau'])
+    train_df['output'] = Y_train
+    
+    test_df = pd.DataFrame(X_test, columns=['SafetyMargin', 'Eta', 'Tau'])
+    test_df['output'] = Y_test
+    
+    calib_df = pd.DataFrame(X_calib, columns=['SafetyMargin', 'Eta', 'Tau'])
+    calib_df['output'] = Y_calib
+
+    train_df.to_csv(f'{save_path}/train.csv', index=False)
+    test_df.to_csv(f'{save_path}/test.csv', index=False)
+    calib_df.to_csv(f'{save_path}/calib.csv', index=False)
+    return print("Split Done")
+    
+# def split_dataset(X, Y, train_size, test_size, calib_size):
+    
+#     train_size = int(train_size)
+#     test_size = int(test_size)
+#     calib_size = int(calib_size)
+
+#     if train_size <= 0 or test_size <= 0 or calib_size <= 0:
+#         raise ValueError('Sizes of training, test, and calibration sets must be positive integers.')
+
+#     total_samples = X.shape[0]
+#     total_set_size = train_size + test_size + calib_size
+
+#     if total_set_size > total_samples:
+#         raise ValueError('Sizes of training, test, and calibration sets exceed the total number of samples.')
+
+#     perm_indices = np.random.permutation(total_samples)
+
+#     X_train = X[perm_indices[:train_size]]
+#     Y_train = Y[perm_indices[:train_size]]
+
+#     X_test = X[perm_indices[train_size:train_size + test_size]]
+#     Y_test = Y[perm_indices[train_size:train_size + test_size]]
+
+#     X_calib = X[perm_indices[train_size + test_size:train_size + test_size + calib_size]]
+#     Y_calib = Y[perm_indices[train_size + test_size:train_size + test_size + calib_size]]
+
+#     return X_train, Y_train, X_test, Y_test, X_calib, Y_calib
 
 def generate_data(N_points, p_A, p_O, mu1, mu2, Sigma1, Sigma2):
     p_B = 1 - p_A
