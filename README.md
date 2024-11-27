@@ -1,6 +1,6 @@
 # ExplainableSafetyRegions
 
-This repository contains data and code associated to the paper _Narteni S., Carlevaro A., Guzzi J., Mongelli M. (2024) "Ensuring Safe Social Navigation via Explainable Probabilistic and Conformal Safety Regions". The 2nd World Conference on Explainable Artificial Intelligence (xAI-2024). La Valletta (Malta),17-19 July 2024._
+This repository contains data and code associated to the paper _Narteni, S., Carlevaro, A., Guzzi, J., Mongelli, M. (2024). Ensuring Safe Social Navigation via Explainable Probabilistic and Conformal Safety Regions. In: Longo, L., Lapuschkin, S., Seifert, C. (eds) Explainable Artificial Intelligence. xAI 2024. Communications in Computer and Information Science, vol 2156. Springer, Cham. https://doi.org/10.1007/978-3-031-63803-9_22_
 
 The paper deals with simulated social robotics navigation problem that involves a fleet of mobile agents moving in a Cross scenario, governed by a human-
 like behavior. With the purpose of avoiding collisions among them, we show how safe and explainable AI (XAI) methods can constitute useful tools to tailor the parameters of the behavior towards a safe, collision-free, navigation. 
@@ -24,5 +24,5 @@ The overall flowchart is depicted below:
 
 If you want to use our code for your experiments, please cite our paper.
 
-For further information, please contact us at: sara.narteni@ieiit.cnr.it, alberto.carlevaro@ieiit.cnr.it
+For further information, please contact us at: sara.narteni@cnr.it, alberto.carlevaro@ieiit.cnr.it
 
