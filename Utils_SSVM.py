@@ -192,30 +192,11 @@ def b_epsCP(Xtr, Ytr, Xcl, Ycl, b, alpha, kernel, param, eta, epsilon):
 
     qhat = np.quantile(scores, np.ceil((n_cl + 1) * (1-epsilon)) / n_cl)
 
-    b_eps = np.abs(qhat)
+    b_eps = qhat
     
     return b_eps
 
 
-# FPR CONTROL WITH PROBABILISTIC SCALING AND CONFORMAL PREDICTION
-'''
-def FPcontrol(Xtr,Ytr, Xcal, Ycal,method, b, alpha, kernel, param, eta, epsilon):
 
-    """Given a method, computes the right scaling parameter b_eps """
-    
-    if method == "ps":
-            
-        b_eps = b_epsPS(Xtr,Ytr, Xcal, Ycal, b, alpha, kernel, param, eta, epsilon)
-            
-    elif method == "cp":
-            
-        b_eps = b_epsCP(Xtr,Ytr, Xcal, Ycal, b, alpha, kernel, param, eta, epsilon)
-    
-    elif method == "classic":
-        
-        b_eps = 0
-            
-    return b_eps
-'''
 
 
